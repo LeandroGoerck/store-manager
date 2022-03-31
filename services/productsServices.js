@@ -1,4 +1,4 @@
-const ProductsModel = require('../models/productsModels');
+const ProductsModels = require('../models/productsModels');
 
 const isValid = (name, quantity) => {
   if (!name || typeof name !== 'string') return false;
@@ -12,7 +12,7 @@ const create = async ({ name, quantity }) => {
 
   if (!isProductValid) return false;
 
-  const { id } = await ProductsModel.create({ name, quantity });
+  const { id } = await ProductsModels.create({ name, quantity });
 
   return {
     id,
