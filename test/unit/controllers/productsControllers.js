@@ -1,11 +1,11 @@
-const sinon = require('sinon');
 const { expect } = require('chai');
+const sinon = require('sinon');
 
 const ProductsServices = require('../../../services/productsServices');
-const ProductsController = require('../../../controller/productsController');
+const ProductsController = require('../../../controllers/productsController');
 
 
-describe('calling controllers create', () => {
+describe('[controller] calling controllers create', () => {
   describe('when payload is invalid', () => {
     const response = {};
     const request = {};

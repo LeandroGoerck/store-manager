@@ -6,7 +6,7 @@ const connection = require('../../../models/connection');
 const ProductsModels = require('../../../models/productsModels');
 
 
-describe('Insert a new product on Database', () => {
+describe('[model] Insert a new product on Database', () => {
 
   const payloadProduct = {
     name: 'Monitor ultra wide',
@@ -42,7 +42,7 @@ describe('Insert a new product on Database', () => {
 
 });
 
-describe('2 - Create an endpoint to get the products from DataBase', () => {
+describe('2 [model] - Create an endpoint to get the products from DataBase', () => {
 
   const fakeProductList =   [{ name: 'Monitor ultra wide', quantity: 11 },
                              { name: 'Mouse gamer', quantity: 22 },
@@ -62,5 +62,4 @@ describe('2 - Create an endpoint to get the products from DataBase', () => {
       expect(response[0].quantity).to.be.a('number');
     });
   });
-
 });

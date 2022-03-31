@@ -19,6 +19,15 @@ const create = async ({ name, quantity }) => {
   };
 };
 
+const getAll = async () => {
+  const result = await ProductsModels.getAll();
+  return {
+    status: 200,
+    result,
+  };
+};
+
 module.exports = {
   create,
+  getAll,
 };

@@ -14,6 +14,7 @@ app.get('/', (_req, res) => {
 });
 
 app.post('/products', ProductsController.create);
+app.get('/products', ProductsController.getAll);
 
 app.use((err, _req, res, _next) => {
   console.log(err);

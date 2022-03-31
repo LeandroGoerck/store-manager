@@ -16,6 +16,17 @@ const create = async (req, res) => {
     .send('Produto criado com sucesso!');
 };
 
+const getAll = async (req, res) => {
+  try {
+    const productList = ProductsServices.getAll();
+    const { status, result } = productList;
+    return res.status(status).json(result);
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+};
+
 module.exports = {
   create,
+  getAll,
 };
