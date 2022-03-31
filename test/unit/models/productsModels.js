@@ -39,8 +39,4 @@ describe('Insert a new product on Database', () => {
 
   });
 
-  describe('and its NOT a valid product', async () => {
-
-  });
-
 });
