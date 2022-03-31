@@ -1,0 +1,10 @@
+npm install --save-dev nodemon
+npm run dev
+
+
+
+npm run test:mocha
+
+npm test
+
+npm test test/unit-coverage.test.js 
