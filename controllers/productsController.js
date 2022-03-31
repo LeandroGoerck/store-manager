@@ -18,7 +18,7 @@ const create = async (req, res) => {
 
 const getAll = async (req, res) => {
   try {
-    const productList = ProductsServices.getAll();
+    const productList = await ProductsServices.getAll();
     const { status, result } = productList;
     return res.status(status).json(result);
   } catch (error) {
