@@ -1,9 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+// const productsRoutes = require('./routes/productRoutes');
 require('dotenv').config();
 
-const ProductsController = require('./controllers/productsController');
 const SalesController = require('./controllers/salesController');
+const ProducsController = require('./controllers/productsController');
 
 const app = express();
 
@@ -14,16 +15,17 @@ app.get('/', (_req, res) => {
   res.send('Hello');
 });
 
-app.post('/products', ProductsController.create);
-app.get('/products', ProductsController.getAll);
-app.get('/products/:id', ProductsController.getById);
+// app.use('/products', productsRoutes);
+
+app.get('/products', ProducsController.getAll);
+app.get('/products/:id', ProducsController.getById);
 
 app.get('/sales', SalesController.getAll);
 app.get('/sales/:id', SalesController.getById);
 
 app.use((err, _req, res, _next) => {
-  console.log(err);
-  res.status(201).json(err);
+  // console.log(err);
+  res.status(400).json(err);
 });
 
 app.listen(process.env.PORT, () => {
