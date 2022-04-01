@@ -44,9 +44,9 @@ describe('[model] Insert a new product on Database', () => {
 
 describe('2 [model] - Create an endpoint to get the products from DataBase', () => {
 
-  const fakeProductList =   [{ name: 'Monitor ultra wide', quantity: 11 },
-                             { name: 'Mouse gamer', quantity: 22 },
-                             { name: 'HD SSD', quantity: 33 }];
+  const fakeProductList =   [[{ name: 'Mouse gamer', quantity: 11 },
+                             { name: 'Monitor ultra wide', quantity: 22 },
+                             { name: 'HD SSD', quantity: 33 }]];
   before(() => {
     sinon.stub(connection, 'execute').resolves(fakeProductList)
   });
@@ -60,6 +60,34 @@ describe('2 [model] - Create an endpoint to get the products from DataBase', () 
       expect(response[0]).to.be.a('object');
       expect(response[0].name).to.be.a('string');
       expect(response[0].quantity).to.be.a('number');
+      expect(response[1]).to.be.a('object');
+      expect(response[1].name).to.be.a('string');
+      expect(response[1].quantity).to.be.a('number');
     });
   });
+});
+
+
+describe('2 [model] - Getting one product from DataBase', () => {
+
+  const fakeProduct =   [[{ name: 'Mouse gamer', quantity: 11 }]];
+
+  before(() => {
+    sinon.stub(connection, 'execute').resolves(fakeProduct)
+  });
+  after(() => {
+    connection.execute.restore();
+  });
+
+  describe('the selected product is being returned', () => {
+    it('returns an array of objects, with name and quantity', async () => {
+      const response = await ProductsModels.getById();
+
+      expect(response).to.be.a('array');
+      expect(response[0]).to.be.a('object');
+      expect(response[0].name).to.be.a('string');
+      expect(response[0].quantity).to.be.a('number');
+    });
+  });
+
 });

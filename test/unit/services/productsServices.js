@@ -97,4 +97,48 @@ describe('[service] Insert a new product in DataBase', () => {
     });
   });
 
+  describe('2 [service] - "getById" returns a product from DataBase', () => {
+
+    const fakeProduct =   [{ name: 'Monitor ultra wide', quantity: 11, id: 1 }];
+
+    const fakeResult = {
+      status: 200,
+      result: fakeProduct,
+    };
+
+    before(() => {
+      sinon.stub(ProductsModels, 'getById').resolves(fakeResult)
+    });
+    after(() => {
+      ProductsModels.getById.restore();
+    });
+    describe('when a result have returned', () => {
+
+      it('has a property status', async () => {
+        const response = await ProductsModels.getById();
+        expect(response).to.have.a.property('status');
+      });
+
+      it('has a property result', async () => {
+        const response = await ProductsModels.getById();
+        expect(response).to.have.a.property('result');
+      });
+
+      it('status is called with 200', async () => {
+        const response = await ProductsModels.getById();
+        expect(response).to.have.a.property('status');
+        expect(response.status).to.be.equals(200);
+      });
+      
+      it('result is an array of objects, with name and quantity', async () => {
+        const response = await ProductsModels.getById();
+        expect(response.result).to.be.a('array');
+        expect(response.result[0]).to.be.a('object');
+        expect(response.result[0].id).to.be.a('number');
+        expect(response.result[0].name).to.be.a('string');
+        expect(response.result[0].quantity).to.be.a('number');
+      });
+    });
+  });
+
 
