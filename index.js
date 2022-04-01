@@ -26,6 +26,6 @@ app.use((err, _req, res, _next) => {
   res.status(201).json(err);
 });
 
-app.listen(process.env.APP_PORT, () => {
-  console.log(`Escutando na porta ${process.env.APP_PORT}`);
+app.listen(process.env.PORT, () => {
+  console.log(`Escutando na porta ${process.env.PORT}`);
 });

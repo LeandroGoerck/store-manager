@@ -1,0 +1,33 @@
+npm install --save-dev nodemon
+npm run dev
+
+npm run test:mocha
+
+npm test
+
+npm test test/unit-coverage.test.js 
+
+npm test test/02-list.test
+
+docker run -p 3307:3306 --name mysql_80 -e MYSQL_ROOT_PASSWORD=1234 -d mysql:8 mysqld --default-authentication-plugin=mysql_native_password
+ // 'root' se o seu usuário chamar root
+  DROP USER 'root'@'localhost';
+  CREATE USER 'root'@'%' IDENTIFIED BY '1234';
+  GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+  FLUSH PRIVILEGES;
+
+---user leandro
+---ps 12345678
+
+ALTER USER 'leandro'@'localhost' IDENTIFIED WITH mysql_native_password BY '12345678';
+ALTER USER 'leandro'@'%' IDENTIFIED WITH mysql_native_password BY '12345678';
+ALTER USER 'leandro' IDENTIFIED WITH mysql_native_password BY '12345678';
+
+
+docker run --name meu-mysql-5_7 -e MYSQL_ROOT_PASSWORD=1234 -d -p 3310:3306 mysql:5.7 --default-authentication-plugin=mysql_native_password
+
+systemctl status mysql
+
+systemctl stop mysql
+
+
