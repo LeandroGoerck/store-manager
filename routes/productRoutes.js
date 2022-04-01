@@ -1,10 +1,13 @@
 const express = require('express');
+const rescue = require('express-rescue');
 const ProductsController = require('../controllers/productsController');
 
 const router = express.Router();
 
-router.get('/', ProductsController.getAll);
-router.get('/:id', ProductsController.getById);
-router.post('/', ProductsController.create);
+router.route('/')
+  .get(rescue(ProductsController.getAll))
+  .post(rescue(ProductsController.create));
+  
+router.get('/:id', rescue(ProductsController.getById));
 
 module.exports = router;

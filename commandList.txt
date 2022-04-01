@@ -31,3 +31,22 @@ systemctl status mysql
 systemctl stop mysql
 
 
+
+
+// const snakeToCamelStr = (str) =>
+// str.toLowerCase().replace(/([-_][a-z])/g, (group) =>
+// group
+// .toUpperCase()
+// .replace('-', '')
+// .replace('_', ''));
+
+// const snakeToCamelObj = (obj) => {
+//   const camelKeys = Object.keys(obj).map((k) => (snakeToCamelStr(k)));
+//   const values = Object.values(obj);
+//   const newObj = {
+//     [camelKeys[0]]: values[0],
+//     [camelKeys[1]]: values[1],
+//     [camelKeys[2]]: values[2],
+//     [camelKeys[3]]: values[3] };
+//   return newObj;
+// };

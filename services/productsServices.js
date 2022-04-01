@@ -1,3 +1,4 @@
+const ERR = require('./errorMessages');
 const ProductsModels = require('../models/productsModels');
 
 const isValid = (name, quantity) => {
@@ -27,8 +28,15 @@ const getAll = async () => {
   };
 };
 
+const checkProduct = (product) => {
+  if (!product) {
+    throw ERR.PRODUCT_NOT_FOUNT;
+  }
+};
+
 const getById = async (id) => {
   const product = await ProductsModels.getById(id);
+  checkProduct(product);
   return {
     status: 200,
     product,
