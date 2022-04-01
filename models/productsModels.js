@@ -16,7 +16,7 @@ const create = async ({ name, quantity }) => {
 
 const getAll = async () => {
   const [response] = await connection
-    .execute('SELECT * FROM StoreManager.products;');
+    .execute('SELECT * FROM StoreManager.products ORDER BY id;');
   return response;
 };
 

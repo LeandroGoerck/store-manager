@@ -76,3 +76,72 @@ describe('[controller] calling controllers create', () => {
   
     });
 });
+
+
+describe('[controller] calling controllers getById', () => {
+
+  describe('when id is invalid', () => {
+    const FAKE_ID = 1;
+    const response = {};
+    const request = {
+      body: {},
+      params: { id: FAKE_ID } 
+    };
+    before(() => {
+      response.status = sinon.stub().returns(response);
+      response.send = sinon.stub().returns();
+      response.json = sinon.stub().returns();
+      sinon.stub(ProductsServices, 'getById').resolves(false);
+    });
+
+    after(() => {
+      ProductsServices.getById.restore();
+    });
+
+    it('status is called with code 400', async () => {
+      await ProductsController.getById(request, response);
+      expect(response.status.calledWith(400)).to.be.equal(true);
+    });
+
+    it('send is called with "Dados inválidos"', async () => {
+      await ProductsController.getById(request, response);
+      expect(response.send.calledWith('Dados inválidos')).to.be.equal(true);
+    });
+  
+  });
+  
+  describe('when get is successfull', () => {     
+    const FAKE_ID = 1;
+    const response = {};
+    const request = {
+      body: {},
+      params: { id: FAKE_ID } 
+    };
+    const serviceResult = {
+      status: 200,
+      product: [ { id: 1, name: 'Martelo de Thor', quantity: 10 } ]
+    }
+    const serviceJson = [ { id: 1, name: 'Martelo de Thor', quantity: 10 } ];
+
+    before(() => {
+      response.status = sinon.stub().returns(response);
+      response.json = sinon.stub().returns();
+      sinon.stub(ProductsServices, 'getById').resolves(serviceResult);
+    });
+
+    after(() => {
+      ProductsServices.getById.restore();
+    });
+
+    it('status is called with code 200', async () => {
+      await ProductsController.getById(request, response);
+      expect(response.status.calledWith(200)).to.be.equal(true);
+    });
+
+    it('json is called with object "serviceJson"', async () => {
+      await ProductsController.getById(request, response);
+      expect(response.json.calledWith(serviceJson)).to.be.equal(true);
+    });
+  });
+    
+});
