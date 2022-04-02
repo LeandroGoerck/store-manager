@@ -8,13 +8,38 @@ const isValid = (name, quantity) => {
   return true;
 };
 
+const checkIfNameExists = (name) => {
+  if (!name) {
+    throw ERR.NAME_IS_REQUIRED;
+  }
+};
+
+const checkNameLength = (name) => {
+  if (name.length < 5) {
+    throw ERR.NAME_LENGTH;
+  }
+};
+
+const checkIfQuantityExists = (quantity) => {
+  if (!quantity) {
+    throw ERR.QUANTITY_IS_REQUIRED;
+  }
+};
+
+const checkQuantity = (quantity) => {
+  if (quantity < 0) {
+    throw ERR.QUANTITY_MUST_BE_GREATER_THAN_0;
+  }
+};
+
 const create = async ({ name, quantity }) => {
   const isProductValid = isValid(name, quantity);
-
+  checkIfNameExists(name);
+  checkNameLength(name);
+  checkIfQuantityExists(quantity);
+  checkQuantity(quantity);
   if (!isProductValid) return false;
-
   const { id } = await ProductsModels.create({ name, quantity });
-
   return {
     id,
   };
