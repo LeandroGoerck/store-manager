@@ -68,8 +68,25 @@ const getById = async (id) => {
   };
 };
 
+const checkId = (id) => {
+  if (!id) {
+    throw ERR.PRODUCT_NOT_FOUNT;
+  }
+};
+
+const updateProduct = async (id, name, quantity) => {
+  checkId(id);
+  // checkProductIsValid(name, quantity);
+  const updatedProduct = await ProductsModels.updateProduct(id, name, quantity);
+  return {
+    status: 200,
+    updatedProduct,
+  };
+};
+
 module.exports = {
   create,
   getAll,
   getById,
+  updateProduct,
 };

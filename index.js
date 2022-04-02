@@ -9,9 +9,7 @@ const app = express();
 app.use(bodyParser.json());
 
 // não remova esse endpoint, e para o avaliador funcionar
-app.get('/', (_req, res) => {
-  res.send('Hello');
-});
+app.get('/', (_req, res) => (res.send('Hello')));
 
 app.use('/products', productsRoutes);
 app.use('/sales', salesRoutes);

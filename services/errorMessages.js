@@ -28,6 +28,11 @@ const QUANTITY_MUST_BE_GREATER_THAN_0 = {
   status: 422,
 };
 
+const PRODUCT_ID_IS_REQUIRED = {
+  err: { message: '"productId" is required' },
+  status: 400,
+};
+
 module.exports = {
   PRODUCT_NOT_FOUNT,
   SALE_NOT_FOUNT,
@@ -35,4 +40,5 @@ module.exports = {
   NAME_LENGTH,
   QUANTITY_IS_REQUIRED,
   QUANTITY_MUST_BE_GREATER_THAN_0,
+  PRODUCT_ID_IS_REQUIRED,
 };
