@@ -5,7 +5,7 @@ const createNewProduct = async ({ name, quantity }) => {
     .execute(
       `INSERT INTO 
         StoreManager.products (name, quantity)
-      VALUES (?,?)`,
+      VALUES (?,?);`,
       [name, quantity],
       );
 
@@ -26,9 +26,13 @@ const getById = async (id) => {
   return response[0];
 };
 
-const updateProduct = async (id) => {
-  console.log(id);
-  return { id };
+const updateProduct = async ({ id, name, quantity }) => {
+  const [{ insertId }] = await connection
+    .execute(`
+  UPDATE StoreManager.products
+    SET name = ? , quantity = ?
+    WHERE id = ?;`, [name, quantity, id]);
+  return { id: insertId, name, quantity };
 };
 
 const findByName = async (name) => {

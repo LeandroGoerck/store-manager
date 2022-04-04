@@ -34,9 +34,9 @@ const getById = async (id) => {
 };
 
 const updateProduct = async (id, name, quantity) => {
-  // checkId(id);
-  // checkProductIsValid(name, quantity);
-  const updatedProduct = await ProductsModels.updateProduct(id, name, quantity);
+  const product = await ProductsModels.getById(id);
+  checkProduct(product);
+  const updatedProduct = await ProductsModels.updateProduct({ id, name, quantity });
   return {
     status: 200,
     updatedProduct,
