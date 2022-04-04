@@ -1,4 +1,4 @@
- const SalesServices = require('../services/salesServices');
+const SalesServices = require('../services/salesServices');
 
 const getAll = async (req, res) => {
   try {
@@ -19,17 +19,15 @@ const getById = async (req, res) => {
 const createNewSale = async (req, res) => {
   const sale = req.body;
   const { status, newSale } = await SalesServices.createNewSale(sale);
-  console.log('newSale: ', newSale);
   res.status(status).json(newSale);
 };
 
-const updateSale = async (id, sale) => {
-  // validateSale(sale);
-  const updatedSale = await SalesServices.updateSale(id, sale);
-  return {
-    status: 200,
-    updatedSale,
-  };
+const updateSale = async (req, res) => {
+  const { id } = req.params;
+  const sale = req.body;
+  const itemUpdated = await SalesServices.updateSale(id, sale);
+  console.log('itemUpdated', itemUpdated);
+  res.status(200).json(itemUpdated);
 };
 
 module.exports = {

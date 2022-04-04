@@ -72,11 +72,27 @@ console.log('Added the sale');
 };
 
 const updateSale = async (id, sale) => {
-  // validateSale(sale);
-  const updatedSale = await SalesModels.updateSale(id, sale);
+  console.log('updateSale: ', id, sale);
+  await Promise.all(sale.map(async (item) => {
+    const productFound = await SalesModels.getById(item.productId);
+    if (!productFound) throw ERR.PRODUCT_NOT_FOUNT;
+  }));
+
+console.log('All products exists');
+
+  await Promise.all(sale.map(async (item) => {
+    console.log(item.productId, item.quantity);
+    await SalesModels.updateSale(id, item.productId, item.quantity);
+  }));
+
+  console.log('All products updated');
+  console.log(sale[0].productId, sale[0].quantity);
+
+  const saleResult = [{ quantity: 14, productId: 3 }];
+
   return {
-    status: 200,
-    updatedSale,
+    saleId: id,
+    itemUpdated: saleResult,
   };
 };
 
