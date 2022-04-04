@@ -5,7 +5,7 @@ const SalesServices = require('../../../services/salesServices');
 const SalesController = require('../../../controllers/salesController');
 
 
-describe.only('[salesController] getAll sales', () => {
+describe('[salesController] getAll sales', () => {
   // describe('when payload is invalid', () => {
   //   const response = {};
   //   const request = {};
@@ -32,7 +32,7 @@ describe.only('[salesController] getAll sales', () => {
 
   // })
 
-    describe.only('when is successful', () => {
+    describe('when is successful', () => {
       const response = {};
       const request = {};
   
