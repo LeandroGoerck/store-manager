@@ -45,18 +45,30 @@ const getById = async (id) => {
   }
 };
 
-const createNewSale = async ({ quantity, productId }) => {
-  // checkIfProductIdExists(productId);
-  // checkIfQuantityExists(quantity);
-  // checkQuantityValue(quantity);
-  const productFound = getById(productId);
-  if (productFound.length) {
-    const newSale = await SalesModels.createNewSale({ quantity, productId });
-    return {
-      status: 200,
-      newSale,
-    };
-  }
+// sale on Service:  [ { productId: 1, quantity: 9 }, { productId: 2, quantity: 19 } ]
+// saleItem:  { productId: 1, quantity: 9 }
+// saleItem:  { productId: 2, quantity: 19 }
+
+const createNewSale = async (sale) => {
+  let id = 0;
+  await Promise.all(sale.map(async (item) => {
+    const productFound = await SalesModels.getById(item.productId);
+    if (!productFound) throw ERR.PRODUCT_NOT_FOUNT;
+  }));
+console.log('All products exists');
+  await Promise.all(sale.map(async (item) => {
+    console.log(item.productId, item.quantity);
+    id = await SalesModels.createNewSale(item.productId, item.quantity);
+  }));
+console.log('Added the sale');
+
+  return {
+    status: 201,
+    newSale: {
+      id,
+      itemsSold: sale,
+    },
+  };
 };
 
 const updateSale = async (id, sale) => {

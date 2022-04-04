@@ -17,8 +17,9 @@ const getById = async (req, res) => {
 };
 
 const createNewSale = async (req, res) => {
-  const { quantity, productId } = req.body;
-  const { status, newSale } = await SalesServices.createNewSale({ quantity, productId });
+  const sale = req.body;
+  const { status, newSale } = await SalesServices.createNewSale(sale);
+  console.log('newSale: ', newSale);
   res.status(status).json(newSale);
 };
 
