@@ -31,9 +31,18 @@ const updateProduct = async (id) => {
   return { id };
 };
 
+const findByName = async (name) => {
+  const lowerCaseName = name.toLowerCase();
+  const [response] = await connection
+    .execute(`SELECT LCASE(name) FROM StoreManager.products
+              WHERE name LIKE ?`, [lowerCaseName]);
+  return response;
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   updateProduct,
+  findByName,
 };

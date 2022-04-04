@@ -33,6 +33,11 @@ const PRODUCT_ID_IS_REQUIRED = {
   status: 400,
 };
 
+const PRODUCT_ALREADY_EXISTS = {
+  err: { message: 'Product already exists' },
+  status: 409,
+};
+
 module.exports = {
   PRODUCT_NOT_FOUNT,
   SALE_NOT_FOUNT,
@@ -41,4 +46,5 @@ module.exports = {
   QUANTITY_IS_REQUIRED,
   QUANTITY_MUST_BE_GREATER_THAN_0,
   PRODUCT_ID_IS_REQUIRED,
+  PRODUCT_ALREADY_EXISTS,
 };

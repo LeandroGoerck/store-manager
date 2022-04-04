@@ -2,8 +2,7 @@ const ProductsServices = require('../services/productsServices');
 
 const create = async (req, res) => {
   const { name, quantity } = req.body;
-  const product = await ProductsServices
-  .create({ name, quantity });
+  const product = await ProductsServices.create({ name, quantity });
 
   if (!product) {
     return res
@@ -13,7 +12,7 @@ const create = async (req, res) => {
 
   res
     .status(201)
-    .send('Produto criado com sucesso!');
+    .json(product);
 };
 
 const getAll = async (req, res) => {
