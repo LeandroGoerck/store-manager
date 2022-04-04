@@ -38,6 +38,11 @@ const PRODUCT_ALREADY_EXISTS = {
   status: 409,
 };
 
+const INVALID_DATA = {
+  err: { message: 'Invalid Data!' },
+  status: 400,
+};
+
 module.exports = {
   PRODUCT_NOT_FOUNT,
   SALE_NOT_FOUNT,
@@ -47,4 +52,5 @@ module.exports = {
   QUANTITY_MUST_BE_GREATER_THAN_0,
   PRODUCT_ID_IS_REQUIRED,
   PRODUCT_ALREADY_EXISTS,
+  INVALID_DATA,
 };

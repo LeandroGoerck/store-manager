@@ -5,14 +5,9 @@ const createNewProduct = async (req, res) => {
   const product = await ProductsServices.createNewProduct({ name, quantity });
 
   if (!product) {
-    return res
-      .status(400)
-      .send('Dados inválidos');
+    return res.status(400).send('Dados inválidos');
   }
-
-  res
-    .status(201)
-    .json(product);
+  res.status(201).json(product);
 };
 
 const getAll = async (req, res) => {
