@@ -34,10 +34,10 @@ const checkQuantity = (quantity) => {
 
 const create = async ({ name, quantity }) => {
   const isProductValid = isValid(name, quantity);
-  checkIfNameExists(name);
-  checkNameLength(name);
-  checkIfQuantityExists(quantity);
-  checkQuantity(quantity);
+  // checkIfNameExists(name);
+  // checkNameLength(name);
+  // checkIfQuantityExists(quantity);
+  // checkQuantity(quantity);
   if (!isProductValid) return false;
   const { id } = await ProductsModels.create({ name, quantity });
   return {
@@ -75,7 +75,7 @@ const checkId = (id) => {
 };
 
 const updateProduct = async (id, name, quantity) => {
-  checkId(id);
+  // checkId(id);
   // checkProductIsValid(name, quantity);
   const updatedProduct = await ProductsModels.updateProduct(id, name, quantity);
   return {

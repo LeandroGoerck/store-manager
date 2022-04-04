@@ -1,15 +1,16 @@
 const express = require('express');
 const rescue = require('express-rescue');
 const SalesController = require('../controllers/salesController');
+const checkProductIdAndQuantity = require('../middlewares/checkProductIdAndQuantity');
 
 const router = express.Router();
 
 router.route('/')
   .get(rescue(SalesController.getAll))
-  .post(rescue(SalesController.createNewSale));
+  .post(checkProductIdAndQuantity, rescue(SalesController.createNewSale));
   
 router.route('/:id')
   .get(rescue(SalesController.getById))
-  .put(rescue(SalesController.updateSale));
+  .put(checkProductIdAndQuantity, rescue(SalesController.updateSale));
 
 module.exports = router;

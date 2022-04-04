@@ -64,9 +64,9 @@ const checkQuantityValue = (quantity) => {
 };
 
 const createNewSale = async ({ quantity, productId }) => {
-  checkIfProductIdExists(productId);
-  checkIfQuantityExists(quantity);
-  checkQuantityValue(quantity);
+  // checkIfProductIdExists(productId);
+  // checkIfQuantityExists(quantity);
+  // checkQuantityValue(quantity);
   const productFound = getById(productId);
   if (productFound.length) {
     const newSale = await SalesModels.createNewSale({ quantity, productId });
