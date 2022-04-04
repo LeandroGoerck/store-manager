@@ -1,14 +1,12 @@
 const ERR = require('./errorMessages');
 const ProductsModels = require('../models/productsModels');
 
-const create = async ({ name, quantity }) => {
+const createNewProduct = async ({ name, quantity }) => {
   const productFound = await ProductsModels.findByName(name);
-  console.log('productFound', productFound, productFound.length);
   if (productFound.length) {
     throw ERR.PRODUCT_ALREADY_EXISTS;
   }  
-  const { id } = await ProductsModels.create({ name, quantity });
-  console.log({ id, name, quantity });
+  const { id } = await ProductsModels.createNewProduct({ name, quantity });
   return { id, name, quantity };
 };
 
@@ -46,7 +44,7 @@ const updateProduct = async (id, name, quantity) => {
 };
 
 module.exports = {
-  create,
+  createNewProduct,
   getAll,
   getById,
   updateProduct,

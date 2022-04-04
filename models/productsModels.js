@@ -1,6 +1,6 @@
 const connection = require('./connection');
 
-const create = async ({ name, quantity }) => {
+const createNewProduct = async ({ name, quantity }) => {
   const [{ insertId }] = await connection
     .execute(
       `INSERT INTO 
@@ -40,7 +40,7 @@ const findByName = async (name) => {
 };
 
 module.exports = {
-  create,
+  createNewProduct,
   getAll,
   getById,
   updateProduct,

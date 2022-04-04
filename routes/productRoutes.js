@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.route('/')
   .get(rescue(ProductsController.getAll))
-  .post(checkNameAndQuantity, rescue(ProductsController.create));
+  .post(checkNameAndQuantity, rescue(ProductsController.createNewProduct));
   
 router.route('/:id')
   .get(rescue(ProductsController.getById))
