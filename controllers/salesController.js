@@ -26,8 +26,8 @@ const updateSale = async (req, res) => {
   const { id } = req.params;
   const sale = req.body;
   const itemUpdated = await SalesServices.updateSale(id, sale);
-  console.log('itemUpdated', itemUpdated);
   res.status(200).json(itemUpdated);
+  console.log('itemUpdated', itemUpdated);
 };
 
 module.exports = {

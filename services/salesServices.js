@@ -78,21 +78,14 @@ const updateSale = async (id, sale) => {
     if (!productFound) throw ERR.PRODUCT_NOT_FOUNT;
   }));
 
-console.log('All products exists');
-
   await Promise.all(sale.map(async (item) => {
     console.log(item.productId, item.quantity);
     await SalesModels.updateSale(id, item.productId, item.quantity);
   }));
 
-  console.log('All products updated');
-  console.log(sale[0].productId, sale[0].quantity);
-
-  const saleResult = [{ quantity: 14, productId: 3 }];
-
   return {
     saleId: id,
-    itemUpdated: saleResult,
+    itemUpdated: sale,
   };
 };
 
