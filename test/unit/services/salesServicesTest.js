@@ -1,8 +1,9 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
 
-const SalesServices = require('../../../services/salesServices');
+const salesServices = require('../../../services/salesServices');
 const SalesModels = require('../../../models/salesModels');
+
 
 describe('[salesServices] - "getAll" returns the products list from DataBase', () => {
 
@@ -55,3 +56,46 @@ describe('[salesServices] - "getAll" returns the products list from DataBase', (
     });
   });
 });
+
+// describe('[salesServices] - "getById" returns the sales from DataBase', () => {
+
+//   const fakeSale =   
+//    [{ "date": "2022-04-05T01:30:36.000Z", "productId": 1, "quantity": 10 },
+//     { "date": "2022-04-05T01:30:36.000Z", "productId": 2, "quantity": 20 }];
+
+//   const fakeResult = {
+//     status: 200,
+//     sales: fakeSale,
+//   };
+
+//   before(() => {sinon.stub(ProductsModels, 'getById').resolves(fakeResult)});
+//   after(() => {ProductsModels.getById.restore()});
+
+//   describe('when a sale have returned', () => {
+
+//     it('has a property status', async () => {
+//       const response = await ProductsModels.getById();
+//       expect(response).to.have.a.property('status');
+//     });
+
+//     it('has a property sales', async () => {
+//       const response = await ProductsModels.getById();
+//       expect(response).to.have.a.property('sales');
+//     });
+
+//     it('status is called with 200', async () => {
+//       const response = await ProductsModels.getById();
+//       expect(response).to.have.a.property('status');
+//       expect(response.status).to.be.equals(200);
+//     });
+    
+//     it('result is an array of objects, with name and quantity', async () => {
+//       const response = await ProductsModels.getById();
+//       expect(response.result).to.be.a('array');
+//       expect(response.result[0]).to.be.a('object');
+//       expect(response.result[0].id).to.be.a('number');
+//       expect(response.result[0].name).to.be.a('string');
+//       expect(response.result[0].quantity).to.be.a('number');
+//     });
+//   });
+// });

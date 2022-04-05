@@ -78,6 +78,69 @@ const ProductsController = require('../../../controllers/productsController');
 // });
 
 
+describe('[salesController] getAll sales', () => {
+  // describe('when payload is invalid', () => {
+  //   const response = {};
+  //   const request = {};
+
+  //   before(() => {
+  //     request.body = {};
+  //     response.status = sinon.stub().returns(response);
+  //     response.send = sinon.stub().returns();
+  //     response.json = sinon.stub().returns();
+  //     sinon.stub(SalesServices, 'getAll').resolves(false);
+  //   });
+
+  //   after(() => {SalesServices.getAll.restore()});
+
+  //   it('status is called with code 400', async () => {
+  //     await SalesController.getAll(request, response);
+  //     expect(response.status.calledWith(400)).to.be.equal(true);
+  //   });
+
+  //   it('send is called with "Invalid Data!"', async () => {
+  //     await SalesController.getAll(request, response);
+  //     expect(response.send.calledWith('Invalid Data!')).to.be.equal(true);
+  //   });
+
+  // })
+
+
+
+    describe('[productsController] calling controllers getAll', () => {
+      const response = {};
+      const request = {};
+  
+      const fakeProducts = 
+      [{ "id": 1, "name": "Martelo de Thor", "quantity": 10 },
+       { "id": 2, "name": "Traje de encolhimento", "quantity": 20 },
+       { "id": 3, "name": "Escudo do Capitão América", "quantity": 30 }]
+
+      const fakeResult =   { status: 200, result: fakeProducts };
+
+      before(() => {
+        response.status = sinon.stub().returns(response);
+        response.send = sinon.stub().returns();
+        response.json = sinon.stub().returns();
+        sinon.stub(ProductsServices, 'getAll').resolves(fakeResult);
+      });
+
+      after(() => {ProductsServices.getAll.restore()});
+  
+      it('status is called with code 200', async () => {
+        await ProductsController.getAll(request, response);
+        expect(response.status.calledWith(200)).to.be.equal(true);
+      });
+  
+      it('json is called with the result', async () => {
+        await ProductsController.getAll(request, response);
+        expect(response.json.calledWith(fakeProducts)).to.be.equal(true);
+      });
+  
+    });
+});
+
+
 describe('[productsController] calling controllers getById', () => {
 
   // describe('when id is invalid', () => {
@@ -145,3 +208,5 @@ describe('[productsController] calling controllers getById', () => {
   });
     
 });
+
+
