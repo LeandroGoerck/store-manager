@@ -43,6 +43,11 @@ const INVALID_DATA = {
   status: 400,
 };
 
+const SALE_NOT_FOUND = {
+  err: { message: 'Sale not found' },
+  status: 404,
+};
+
 module.exports = {
   PRODUCT_NOT_FOUNT,
   SALE_NOT_FOUNT,
@@ -53,4 +58,5 @@ module.exports = {
   PRODUCT_ID_IS_REQUIRED,
   PRODUCT_ALREADY_EXISTS,
   INVALID_DATA,
+  SALE_NOT_FOUND,
 };

@@ -89,9 +89,18 @@ const updateSale = async (id, sale) => {
   };
 };
 
+const deleteById = async (id) => {
+  const saleFound = await SalesModels.getById(id);
+  console.log('saleFound: ', saleFound);
+  if (!saleFound.length) throw ERR.SALE_NOT_FOUND;
+  await SalesModels.deleteById(id);
+  return { status: 204 };
+};
+
 module.exports = {
   getAll,
   getById,
   createNewSale,
   updateSale,
+  deleteById,
 };

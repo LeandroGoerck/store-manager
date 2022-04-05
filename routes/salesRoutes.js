@@ -11,6 +11,7 @@ router.route('/')
   
 router.route('/:id')
   .get(rescue(SalesController.getById))
-  .put(checkProductIdAndQuantity, rescue(SalesController.updateSale));
+  .put(checkProductIdAndQuantity, rescue(SalesController.updateSale))
+  .delete(rescue(SalesController.deleteById));
 
 module.exports = router;
