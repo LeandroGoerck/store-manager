@@ -19,7 +19,7 @@ describe('[salesServices] - "getAll" returns the products list from DataBase', (
 
     it('has a property status', async () => {
       const response = await salesServices.getAll();
-      console.log('response', response);
+      // console.log('response', response);
       expect(response).to.have.a.property('status');
     });
 
