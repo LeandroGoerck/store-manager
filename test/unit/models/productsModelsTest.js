@@ -6,46 +6,6 @@ const ProductsModels = require('../../../models/productsModels');
 
 describe('[productsModel]', () => {
 
-  describe('createNewProduct', () => {
-
-    const fakeProduct = { name: 'Martelo de Thor', quantity: 10};
-    const fakeResolves = [{ insertId: 15 }];
-    const expectedReturn = { id: 15 };
-
-    before(() => {
-      sinon.stub(connection, 'execute').resolves(fakeResolves);
-    });
-    after(() => { connection.execute.restore()});
-
-    describe('the created product id is being returned', () => {
-
-      it('returns an object', async () => {
-        const response = await ProductsModels.createNewProduct(fakeProduct);
-        expect(response).to.be.a('object');
-      });
-
-      it('the object has the key id', async () => {
-        const response = await ProductsModels.createNewProduct(fakeProduct);
-        expect(response).to.have.all.keys('id');
-        expect(response.id).to.be.equals(15);
-      });
-
-      it('the id value is a number', async () => {
-        const response = await ProductsModels.createNewProduct(fakeProduct);
-        expect(response.id).to.be.a('number');
-      });
-      
-      it('all the information is correct', async () => {
-        const response = await ProductsModels.createNewProduct(fakeProduct);
-        expect(response).to.be.deep.equal(expectedReturn);
-      });
-
-
-    });
-  });
-
-
-
   describe('getAll', () => {
 
   const fakeProductList = [[  { "id": 1, "name": "Martelo de Thor", "quantity": 10 },
@@ -83,7 +43,7 @@ describe('[productsModel]', () => {
 
     describe('getById', () => {
 
-      const fakeProduct = [[{ id: 1, name: 'Martelo de Thor', quantity: 10}]]
+      const fakeProduct = [[{ id: 1, name: 'Martelo de Thor', quantity: 10}]];
     
       before(() => { sinon.stub(connection, 'execute').resolves(fakeProduct)});
       after(() => { connection.execute.restore()});
@@ -100,68 +60,101 @@ describe('[productsModel]', () => {
       });
     });
 
-  });
+    
+    describe('findByName', () => {
+      const fakeProduct =[[{ id: 1, name: 'Martelo de Thor', quantity: 10}]];
+
+      before(() => {sinon.stub(connection, 'execute').resolves(fakeProduct)});
+      after(() => {connection.execute.restore()});
+
+      describe('the selected product is being returned', () => {
+        it('returns an array of objects, with id, name and quantity', async () => {
+          const response = await ProductsModels.findByName('anyName');
+          
+          expect(response[0]).to.be.a('object');
+          expect(response[0]).to.have.all.keys('id', 'name', 'quantity');
+          expect(response[0].id).to.be.equals(1);
+          expect(response[0].name).to.be.equals('Martelo de Thor');
+          expect(response[0].quantity).to.be.equals(10);
   
-  // expect({a: 1, b: 2}).to.have.all.keys('a', 'b');
+        });
+      });
 
+    })
 
-// describe('[model] Insert a new product on Database', () => {
+    describe('createNewProduct', () => {
 
-//   const payloadProduct = {
-//     name: 'Monitor ultra wide',
-//     quantity: 10,
-//   }
+      const fakeProduct = { name: 'Martelo de Thor', quantity: 10};
+      const fakeResolves = [{ insertId: 15 }];
+      const expectedReturn = { id: 15 };
+  
+      before(() => {
+        sinon.stub(connection, 'execute').resolves(fakeResolves);
+      });
+      after(() => { connection.execute.restore()});
+  
+      describe('the created product id is being returned', () => {
+  
+        it('returns an object', async () => {
+          const response = await ProductsModels.createNewProduct(fakeProduct);
+          expect(response).to.be.a('object');
+        });
+  
+        it('the object has the key id', async () => {
+          const response = await ProductsModels.createNewProduct(fakeProduct);
+          expect(response).to.have.all.keys('id');
+          expect(response.id).to.be.equals(15);
+        });
+  
+        it('the id value is a number', async () => {
+          const response = await ProductsModels.createNewProduct(fakeProduct);
+          expect(response.id).to.be.a('number');
+        });
+        
+        it('all the information is correct', async () => {
+          const response = await ProductsModels.createNewProduct(fakeProduct);
+          expect(response).to.be.deep.equal(expectedReturn);
+        });
+  
+  
+      });
+    });
 
-//   before(() => {
-//     const fakeResult = [{insertId: 1}];
+    describe('updateProduct', () => {
+      const fakeProduct ={ id: 1, name: 'Martelo de Thor', quantity: 10};
+      const fakeResponse = [{ insertId: 10, name: 'Martelo de Thor', quantity: 10}];
 
-//     sinon.stub(connection, 'execute').resolves(fakeResult)
-//   });
+      before(() => {sinon.stub(connection, 'execute').resolves(fakeResponse)});
+      after(() => {connection.execute.restore()});
 
-//   after(() => {
-//     connection.execute.restore();
-//   });
+      describe('the updated product is being returned', () => {
+        it('returns an object, with id, name and quantity', async () => {
+          const response = await ProductsModels.updateProduct(fakeProduct);
+          
+          expect(response).to.be.a('object');
+          expect(response).to.have.all.keys('id', 'name', 'quantity');
+          expect(response.id).to.be.equals(10);
+          expect(response.name).to.be.equals('Martelo de Thor');
+          expect(response.quantity).to.be.equals(10);
+  
+        });
+      });
+    });
 
+    describe('deleteById', () => {
+      const fakeId = 1;
+      const fakeResponse = true;
 
-//   describe('and its a valid product', () => {
+      before(() => {sinon.stub(connection, 'execute').resolves(fakeResponse)});
+      after(() => {connection.execute.restore()});
 
-//     it('returns an object', async () => {
-//       const response = await ProductsModels.create(payloadProduct);
+      describe('the product was deleted', () => {
+        it('returns true', async () => {
+          const response = await ProductsModels.deleteById(fakeId);
+          
+          expect(response).to.be.equal(true);
+        });
+      });
+    })
 
-//       expect(response).to.be.a('object');
-//     });
-
-//     it('that object has the property "id"', async () => {
-//       const response = await ProductsModels.create(payloadProduct);
-
-//       expect(response).to.have.a.property('id');
-//     });
-
-//   });
-
-// });
-
-// describe('2 [model] - Create an endpoint to get the products from DataBase', () => {
-
-//   const fakeProductList =   [[{ name: 'Mouse gamer', quantity: 11 },
-//                              { name: 'Monitor ultra wide', quantity: 22 },
-//                              { name: 'HD SSD', quantity: 33 }]];
-//   before(() => {
-//     sinon.stub(connection, 'execute').resolves(fakeProductList)
-//   });
-//   after(() => {
-//     connection.execute.restore();
-//   });
-//   describe('all the products are being returned', () => {
-//     it('returns an array of objects, with name and quantity', async () => {
-//       const response = await ProductsModels.getAll();
-//       expect(response).to.be.a('array');
-//       expect(response[0]).to.be.a('object');
-//       expect(response[0].name).to.be.a('string');
-//       expect(response[0].quantity).to.be.a('number');
-//       expect(response[1]).to.be.a('object');
-//       expect(response[1].name).to.be.a('string');
-//       expect(response[1].quantity).to.be.a('number');
-//     });
-//   });
-// });
+  });
