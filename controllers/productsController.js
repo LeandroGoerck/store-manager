@@ -1,15 +1,5 @@
 const ProductsServices = require('../services/productsServices');
 
-const createNewProduct = async (req, res) => {
-  const { name, quantity } = req.body;
-  const product = await ProductsServices.createNewProduct({ name, quantity });
-
-  if (!product) {
-    return res.status(400).send('Dados inválidos');
-  }
-  res.status(201).json(product);
-};
-
 const getAll = async (req, res) => {
   try {
     const productList = await ProductsServices.getAll();
@@ -26,6 +16,16 @@ const getById = async (req, res) => {
     res.status(status).json(product);
 };
 
+const createNewProduct = async (req, res) => {
+  const { name, quantity } = req.body;
+  const product = await ProductsServices.createNewProduct({ name, quantity });
+
+  if (!product) {
+    return res.status(400).send('Dados inválidos');
+  }
+  res.status(201).json(product);
+};
+
 const updateProduct = async (req, res) => {
   const { id } = req.params;
   const { name, quantity } = req.body;
@@ -40,9 +40,9 @@ const deleteById = async (req, res) => {
 };
 
 module.exports = {
-  createNewProduct,
   getAll,
   getById,
+  createNewProduct,
   updateProduct,
   deleteById,
 };
