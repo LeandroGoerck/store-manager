@@ -1,5 +1,25 @@
 const connection = require('./connection');
 
+const getAll = async () => {
+  const [response] = await connection
+    .execute('SELECT * FROM StoreManager.products ORDER BY id;');
+  return response;
+};
+
+const getById = async (id) => {
+  const [response] = await connection
+    .execute('SELECT * FROM StoreManager.products where id = ?;', [id]);
+  return response[0];
+};
+
+const findByName = async (name) => {
+  const lowerCaseName = name.toLowerCase();
+  const [response] = await connection
+    .execute(`SELECT LCASE(name) FROM StoreManager.products
+              WHERE name LIKE ?`, [lowerCaseName]);
+  return response;
+};
+
 const createNewProduct = async ({ name, quantity }) => {
   const [{ insertId }] = await connection
     .execute(
@@ -14,18 +34,6 @@ const createNewProduct = async ({ name, quantity }) => {
     };
 };
 
-const getAll = async () => {
-  const [response] = await connection
-    .execute('SELECT * FROM StoreManager.products ORDER BY id;');
-  return response;
-};
-
-const getById = async (id) => {
-  const [response] = await connection
-    .execute('SELECT * FROM StoreManager.products where id = ?;', [id]);
-  return response[0];
-};
-
 const updateProduct = async ({ id, name, quantity }) => {
   const [{ insertId }] = await connection
     .execute(`
@@ -33,14 +41,6 @@ const updateProduct = async ({ id, name, quantity }) => {
     SET name = ? , quantity = ?
     WHERE id = ?;`, [name, quantity, id]);
   return { id: insertId, name, quantity };
-};
-
-const findByName = async (name) => {
-  const lowerCaseName = name.toLowerCase();
-  const [response] = await connection
-    .execute(`SELECT LCASE(name) FROM StoreManager.products
-              WHERE name LIKE ?`, [lowerCaseName]);
-  return response;
 };
 
 const deleteById = async (id) => {
@@ -51,10 +51,10 @@ const deleteById = async (id) => {
 };
 
 module.exports = {
-  createNewProduct,
   getAll,
   getById,
-  updateProduct,
   findByName,
+  createNewProduct,
+  updateProduct,
   deleteById,
 };

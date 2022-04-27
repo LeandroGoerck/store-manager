@@ -6,7 +6,7 @@ const SalesModels = require('../../../models/salesModels');
 
 describe('[salesModel]', () => {
 
-  describe('Get all', () => {
+  describe('getAll', () => {
 
     const fakeSales = 
       [[ { "saleId": 1, "date": "2022-04-04T23:03:02.000Z", "productId": 1, "quantity": 10 },
@@ -29,6 +29,22 @@ describe('[salesModel]', () => {
         expect(response[0].productId).to.be.equals(1);
       });
     });
+
+  });
+
+  describe('getById', () => {
+
+  });
+
+  describe('createNewSale', () => {
+
+  });
+
+  describe('updateSale', () => {
+
+  });
+
+  describe('deleteById', () => {
 
   });
 
